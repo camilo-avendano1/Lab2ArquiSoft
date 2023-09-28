@@ -20,7 +20,7 @@ class Lab2ApplicationTests {
 
 		void health() {
 
-			assertEquals("HEALTH CHECK OK!", dataController.healthCheck());
+			assertEquals("Health Check OK!", dataController.healthCheck());
 
 		}
 

@@ -1,36 +1,38 @@
-#Workflow name
+# Workflow name
 name: CI/CD Pipeline
+
 on:
-  #Manually trigger workflow runs
+  # Manually trigger workflow runs
   workflow_dispatch:
-  #Trigger the workflow on push from the main branch
+  # Trigger the workflow on push from the main branch
   push:
     branches:
       - main
+
 jobs:
-  #Test's job
+  # Test's job
   tests:
     name: Unit tests
-    #Run on Ubuntu using the latest version
+    # Run on Ubuntu using the latest version
     runs-on: ubuntu-latest
-    #Job's steps
+    # Job's steps
     steps:
-      #Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
+      # Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
       - uses: actions/checkout@v1
-      #Set up JDK 11
+      # Set up JDK 11
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
           java-version: '11'
-      #Set up Maven cache
+      # Cache Maven packages
       - name: Cache Maven packages
-        #This action allows caching dependencies and build outputs to improve workflow execution time.
+        # This action allows caching dependencies and build outputs to improve workflow execution time.
         uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      #Run Tests
+      # Run Tests
       - name: Run Tests
         run: mvn -B test
 
@@ -45,13 +47,11 @@ sonar:
   steps:
     # Check-out your repository under $GITHUB_WORKSPACE, so your workflow can access it
     - uses: actions/checkout@v1
-
     # Set up JDK 11
     - name: Set up JDK
       uses: actions/setup-java@v1
       with:
         java-version: '11'
-
     # Cache SonarCloud packages
     - name: Cache SonarCloud packages
       uses: actions/cache@v1
@@ -59,7 +59,6 @@ sonar:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
-
     # Cache Maven packages
     - name: Cache Maven packages
       uses: actions/cache@v1
@@ -67,7 +66,6 @@ sonar:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
-
     # Analyze project with SonarCloud
     - name: Analyze with SonarCloud
       run: mvn -B verify sonar:sonar -Dsonar.projectKey=camilo-avendano1_Lab2ArquiSoft -Dsonar.organization=camilo-avendano1 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN

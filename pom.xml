@@ -15,10 +15,15 @@
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
+
+			<sonar.organization>camilo-avendano1</sonar.organization>
+			<sonar.projectKey>camilo-avendano1_Lab2ArquiSoft</sonar.projectKey>
+			<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
+			<groupId>org.springframework.boot</groupId>\
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
